@@ -9,14 +9,15 @@ import org.apache.cordova.CordovaInterface
 import org.apache.cordova.CordovaWebView
 import org.apache.cordova.PermissionHelper
 import org.json.JSONArray
+import android.util.Base64
 
 class ARPlugin: CordovaImplementation(){
 
     override var callbackContext: CallbackContext? = null
 
     var folderName = ""
-    byte[] model = null
-    byte[] texture = null
+    val model = null
+    val texture = null
     val ACCESS_CAMERA = 0
 
     override fun initialize(cordova: CordovaInterface, webView: CordovaWebView) {
@@ -44,9 +45,9 @@ class ARPlugin: CordovaImplementation(){
 
     private fun doOpenAR(args: JSONArray) {
 
-        folderName = args[0].getString(0)
-        model = args[1].getString(0)
-        texture = args[2].getString(0)
+        folderName = args.getString(0)
+        model = args.getString(1)
+        texture = args.getString(2)
 
         if(folderName.isNullOrEmpty()){
             return
