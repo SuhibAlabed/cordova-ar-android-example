@@ -16,8 +16,6 @@ class ARPlugin: CordovaImplementation(){
     override var callbackContext: CallbackContext? = null
 
     var folderName = ""
-    val model = null
-    val texture = null
     val ACCESS_CAMERA = 0
 
     override fun initialize(cordova: CordovaInterface, webView: CordovaWebView) {
@@ -46,8 +44,13 @@ class ARPlugin: CordovaImplementation(){
     private fun doOpenAR(args: JSONArray) {
 
         folderName = args.getString(0)
-        model = args.getString(1)
-        texture = args.getString(2)
+        val base64model = args.getString(1)
+        val base64texture= args.getString(2)
+
+        val model = Base64.decode(base64model, Base64.DEFAULT)
+
+        val texture = Base64.decode(base64texture, Base64.DEFAULT)
+
 
         if(folderName.isNullOrEmpty()){
             return
