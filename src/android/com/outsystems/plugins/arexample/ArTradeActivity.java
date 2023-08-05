@@ -82,47 +82,19 @@ public class ArTradeActivity extends AppCompatActivity implements GLSurfaceView.
     private final ArrayBlockingQueue<MotionEvent> mQueuedSingleTaps = new ArrayBlockingQueue<>(16);
     private final ArrayList<Anchor> mAnchors = new ArrayList<>();
 
-    private static final String USER_AGENT = "Mozilla/5.0";
-    private static final String GET_URL = "https://personal-gcdmeeaq.outsystemscloud.com/ARMDC_API/rest/Attachment/Model?Id=18";
-
-    protected void sendGET() {
-        // objPath = getIntent().getStringExtra("obj_path");
-        // texturePath = getIntent().getStringExtra("texture_path");
-
-        URL obj = new URL(GET_URL);
-        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-        con.setRequestMethod("GET");
-        con.setRequestProperty("User-Agent", USER_AGENT);
-        int responseCode = con.getResponseCode();
-        // System.out.println("GET Response Code :: " + responseCode);
-        if (responseCode == HttpURLConnection.HTTP_OK) { // success
-            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            String inputLine;
-            StringBuffer response = new StringBuffer();
-
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
-            }
-            in.close();
-            objPath = response.toString();
-            texturePath = getIntent().getStringExtra("texture_path");
-            // print result
-            // System.out.println(response.toString());
-        } else {
-            // System.out.println("GET request did not work.");
-        }
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getResourceId("layout/activity_main"));
         mSurfaceView = findViewById(getResourceId("id/surfaceview"));
         mDisplayRotationHelper = new DisplayRotationHelper(/* context= */ this);
-        sendGET();
         // assign values to objPath and texturePath
+
         // objPath = getIntent().getStringExtra("obj_path");
         // texturePath = getIntent().getStringExtra("texture_path");
+
+        objPath = getIntent().getStringExtra("obj_path");
+        texturePath = getIntent().getStringExtra("texture_path");
 
         // Set up tap listener.
         mGestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
