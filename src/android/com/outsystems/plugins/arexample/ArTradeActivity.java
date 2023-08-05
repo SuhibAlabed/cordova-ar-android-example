@@ -225,10 +225,11 @@ public class ArTradeActivity extends AppCompatActivity implements GLSurfaceView.
         if (mSession != null) {
             mSession.setCameraTextureName(mBackgroundRenderer.getTextureId());
         }
+//            mVirtualObject.createOnGlThread(/*context=*/this, objPath, texturePath, getResourceId("raw/object_vertex"), getResourceId("raw/object_fragment"));
 
         // Prepare the other rendering objects.
         try {
-            mVirtualObject.createOnGlThread(/*context=*/this, objPath, texturePath, getResourceId("raw/object_vertex"), getResourceId("raw/object_fragment"));
+            mVirtualObject.createOnGlThread(/*context=*/this, getResourceId("raw/mesh.obj"), getResourceId("raw/diffuse.png"), getResourceId("raw/object_vertex"), getResourceId("raw/object_fragment"));
             mVirtualObject.setMaterialProperties(0.0f, 3.5f, 1.0f, 6.0f);
 
             //mVirtualObjectShadow.createOnGlThread(/*context=*/this,
