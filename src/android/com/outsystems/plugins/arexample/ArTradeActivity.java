@@ -85,7 +85,6 @@ public class ArTradeActivity extends AppCompatActivity implements GLSurfaceView.
     private static final String USER_AGENT = "Mozilla/5.0";
     private static final String GET_URL = "https://personal-gcdmeeaq.outsystemscloud.com/ARMDC_API/rest/Attachment/Model?Id=18";
 
-    @Override
     protected void sendGET() throws IOException {
         // objPath = getIntent().getStringExtra("obj_path");
         // texturePath = getIntent().getStringExtra("texture_path");
