@@ -8,8 +8,8 @@ import org.apache.cordova.CallbackContext
 import org.apache.cordova.CordovaInterface
 import org.apache.cordova.CordovaWebView
 import org.apache.cordova.PermissionHelper
-import org.apache.cordova.externalRootDirectory
 import org.json.JSONArray
+import org.apache.cordova.CordovaPlugin;
 
 class ARPlugin: CordovaImplementation(){
 
@@ -70,11 +70,12 @@ class ARPlugin: CordovaImplementation(){
             }
             else{
                 val intent = Intent(cordova.activity, ArTradeActivity::class.java)
-                intent.putExtra("obj_path", cordova.file.externalRootDirectory+"/files/$folderName/mesh.obj")
-                intent.putExtra("texture_path", cordova.file.externalRootDirectory+"/files/$folderName/diffuse.png")
+                intent.putExtra("obj_path", "www/files/$folderName/mesh.obj")
+                intent.putExtra("texture_path", "www/files/$folderName/diffuse.png")
                 cordova.activity.startActivityForResult(intent, 1)
             }
 
         }
     }
 }
+
