@@ -1,5 +1,5 @@
 var exec = require("cordova/exec");
 
-exports.openARView = function (success, error, folderName, model, texture) {
-  exec(success, error, "ARPlugin", "openARView", [folderName, model, texture]);
+exports.openARView = function (success, error, folderName) {
+  exec(success, error, "ARPlugin", "openARView", [folderName]);
 };
