@@ -42,21 +42,24 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 /**
- * The application will display any detected planes and will allow the user to tap on a
- * plane to place a 3d model of an object. Each subsequent tap on the anchor point of the object
+ * The application will display any detected planes and will allow the user to
+ * tap on a
+ * plane to place a 3d model of an object. Each subsequent tap on the anchor
+ * point of the object
  * will pop up an AlertDialog.
  */
 public class ArTradeActivity extends AppCompatActivity implements GLSurfaceView.Renderer {
     private static final String TAG = ArTradeActivity.class.getSimpleName();
 
-    // Rendering. The Renderers are created here, and initialized when the GL surface is created.
+    // Rendering. The Renderers are created here, and initialized when the GL
+    // surface is created.
     private GLSurfaceView mSurfaceView;
 
     private Session mSession;
     private GestureDetector mGestureDetector;
     private Snackbar mMessageSnackbar;
     private DisplayRotationHelper mDisplayRotationHelper;
-    
+
     private String objPath = "";
     private String texturePath = "";
 
@@ -66,7 +69,8 @@ public class ArTradeActivity extends AppCompatActivity implements GLSurfaceView.
     private final PlaneRenderer mPlaneRenderer = new PlaneRenderer();
     private final PointCloudRenderer mPointCloud = new PointCloudRenderer();
 
-    // Temporary matrix allocated here to reduce number of allocations for each frame.
+    // Temporary matrix allocated here to reduce number of allocations for each
+    // frame.
     private final float[] mAnchorMatrix = new float[16];
 
     // Tap handling and UI.
@@ -78,13 +82,12 @@ public class ArTradeActivity extends AppCompatActivity implements GLSurfaceView.
         super.onCreate(savedInstanceState);
         setContentView(getResourceId("layout/activity_main"));
         mSurfaceView = findViewById(getResourceId("id/surfaceview"));
-        mDisplayRotationHelper = new DisplayRotationHelper(/*context=*/ this);
-        
-        
-        //assign values to objPath and texturePath
-        objPath = "raw.githubusercontent.com/SuhibAlabed/webARObject/main/Cat/mesh.obj";  //getIntent().getStringExtra("obj_path");
-        texturePath = "raw.githubusercontent.com/SuhibAlabed/webARObject/main/Cat/diffuse.png"; //getIntent().getStringExtra("texture_path");
-        
+        mDisplayRotationHelper = new DisplayRotationHelper(/* context= */ this);
+
+        // assign values to objPath and texturePath
+        objPath = getIntent().getStringExtra("obj_path");
+        texturePath = getIntent().getStringExtra("texture_path");
+
         // Set up tap listener.
         mGestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
             @Override
@@ -149,12 +152,14 @@ public class ArTradeActivity extends AppCompatActivity implements GLSurfaceView.
     protected void onResume() {
         super.onResume();
 
-        // ARCore requires camera permissions to operate. If we did not yet obtain runtime
+        // ARCore requires camera permissions to operate. If we did not yet obtain
+        // runtime
         // permission on Android M and above, now is a good time to ask the user for it.
         if (CameraPermissionHelper.hasCameraPermission(this)) {
             if (mSession != null) {
                 showLoadingMessage();
-                // Note that order matters - see the note in onPause(), the reverse applies here.
+                // Note that order matters - see the note in onPause(), the reverse applies
+                // here.
                 try {
                     mSession.resume();
                 } catch (CameraNotAvailableException e) {
@@ -171,8 +176,10 @@ public class ArTradeActivity extends AppCompatActivity implements GLSurfaceView.
     @Override
     public void onPause() {
         super.onPause();
-        // Note that the order matters - GLSurfaceView is paused first so that it does not try
-        // to query the session. If Session is paused before GLSurfaceView, GLSurfaceView may
+        // Note that the order matters - GLSurfaceView is paused first so that it does
+        // not try
+        // to query the session. If Session is paused before GLSurfaceView,
+        // GLSurfaceView may
         // still call mSession.update() and get a SessionPausedException.
         mDisplayRotationHelper.onPause();
         mSurfaceView.onPause();
@@ -183,7 +190,7 @@ public class ArTradeActivity extends AppCompatActivity implements GLSurfaceView.
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] results) {
-        //super.onRequestPermissionsResult(requestCode, permissions, results);
+        // super.onRequestPermissionsResult(requestCode, permissions, results);
         if (!CameraPermissionHelper.hasCameraPermission(this)) {
             Toast.makeText(this,
                     "Camera permission is needed to run this application", Toast.LENGTH_LONG).show();
@@ -201,12 +208,12 @@ public class ArTradeActivity extends AppCompatActivity implements GLSurfaceView.
         if (hasFocus) {
             // Standard Android full-screen functionality.
             getWindow().getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
     }
@@ -220,30 +227,35 @@ public class ArTradeActivity extends AppCompatActivity implements GLSurfaceView.
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
         GLES20.glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
-        // Create the texture and pass it to ARCore session to be filled during update().
-        mBackgroundRenderer.createOnGlThread(/*context=*/ this, getResourceId("raw/screenquad_vertex"), getResourceId("raw/screenquad_fragment_oes"));
+        // Create the texture and pass it to ARCore session to be filled during
+        // update().
+        mBackgroundRenderer.createOnGlThread(/* context= */ this, getResourceId("raw/screenquad_vertex"),
+                getResourceId("raw/screenquad_fragment_oes"));
         if (mSession != null) {
             mSession.setCameraTextureName(mBackgroundRenderer.getTextureId());
         }
 
         // Prepare the other rendering objects.
         try {
-            mVirtualObject.createOnGlThread(/*context=*/this, objPath, texturePath, getResourceId("raw/object_vertex"), getResourceId("raw/object_fragment"));
+            mVirtualObject.createOnGlThread(/* context= */this, objPath, texturePath,
+                    getResourceId("raw/object_vertex"), getResourceId("raw/object_fragment"));
             mVirtualObject.setMaterialProperties(0.0f, 3.5f, 1.0f, 6.0f);
 
-            //mVirtualObjectShadow.createOnGlThread(/*context=*/this,
-            //    "andy_shadow.obj", "andy_shadow.png");
+            // mVirtualObjectShadow.createOnGlThread(/*context=*/this,
+            // "andy_shadow.obj", "andy_shadow.png");
             mVirtualObjectShadow.setBlendMode(BlendMode.Shadow);
             mVirtualObjectShadow.setMaterialProperties(1.0f, 0.0f, 0.0f, 1.0f);
         } catch (IOException e) {
             Log.e(TAG, "Failed to read obj file");
         }
         try {
-            mPlaneRenderer.createOnGlThread(/*context=*/this, "trigrid.png", getResourceId("raw/plane_vertex"), getResourceId("raw/plane_fragment"));
+            mPlaneRenderer.createOnGlThread(/* context= */this, "trigrid.png", getResourceId("raw/plane_vertex"),
+                    getResourceId("raw/plane_fragment"));
         } catch (IOException e) {
             Log.e(TAG, "Failed to read plane texture");
         }
-        mPointCloud.createOnGlThread(/*context=*/this, getResourceId("raw/point_cloud_vertex"), getResourceId("raw/passthrough_fragment"));
+        mPointCloud.createOnGlThread(/* context= */this, getResourceId("raw/point_cloud_vertex"),
+                getResourceId("raw/passthrough_fragment"));
     }
 
     @Override
@@ -254,24 +266,28 @@ public class ArTradeActivity extends AppCompatActivity implements GLSurfaceView.
 
     @Override
     public void onDrawFrame(GL10 gl) {
-        // Clear screen to notify driver it should not load any pixels from previous frame.
+        // Clear screen to notify driver it should not load any pixels from previous
+        // frame.
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
 
         if (mSession == null) {
             return;
         }
-        // Notify ARCore session that the view size changed so that the perspective matrix and
+        // Notify ARCore session that the view size changed so that the perspective
+        // matrix and
         // the video background can be properly adjusted.
         mDisplayRotationHelper.updateSessionIfNeeded(mSession);
 
         try {
             // Obtain the current frame from ARSession. When the configuration is set to
-            // UpdateMode.BLOCKING (it is by default), this will throttle the rendering to the
+            // UpdateMode.BLOCKING (it is by default), this will throttle the rendering to
+            // the
             // camera framerate.
             Frame frame = mSession.update();
             Camera camera = frame.getCamera();
 
-            // Handle taps. Handling only one tap per frame, as taps are usually low frequency
+            // Handle taps. Handling only one tap per frame, as taps are usually low
+            // frequency
             // compared to frame rate.
             MotionEvent tap = mQueuedSingleTaps.poll();
             if (tap != null && camera.getTrackingState() == TrackingState.TRACKING) {
@@ -284,15 +300,18 @@ public class ArTradeActivity extends AppCompatActivity implements GLSurfaceView.
                         // Cap the number of objects created. This avoids overloading both the
                         // rendering system and ARCore.
                         if (mAnchors.size() > 0) {
-                            // Check to see if the distance between the HitPose and the previous anchor pose is small
-                            // This will be used to check (as an approximation) if the 3D object was tapped on
+                            // Check to see if the distance between the HitPose and the previous anchor pose
+                            // is small
+                            // This will be used to check (as an approximation) if the 3D object was tapped
+                            // on
                             Pose objectPose = mAnchors.get(0).getPose();
                             Pose currentPose = hit.getHitPose();
                             double distance = Math.sqrt(
                                     (currentPose.tx() - objectPose.tx()) * (currentPose.tx() - objectPose.tx()) +
-                                            (currentPose.ty() - objectPose.ty()) * (currentPose.ty() - objectPose.ty()) +
-                                                (currentPose.tz() - objectPose.tz()) * (currentPose.tz() - objectPose.tz())
-                            );
+                                            (currentPose.ty() - objectPose.ty()) * (currentPose.ty() - objectPose.ty())
+                                            +
+                                            (currentPose.tz() - objectPose.tz())
+                                                    * (currentPose.tz() - objectPose.tz()));
 
                             if (distance < 0.1) {
                                 final Context context = this;
@@ -363,7 +382,7 @@ public class ArTradeActivity extends AppCompatActivity implements GLSurfaceView.
 
             // Visualize planes.
             mPlaneRenderer.drawPlanes(
-                mSession.getAllTrackables(Plane.class), camera.getDisplayOrientedPose(), projmtx);
+                    mSession.getAllTrackables(Plane.class), camera.getDisplayOrientedPose(), projmtx);
 
             // Visualize anchors created by touch.
             float scaleFactor = 1f;
@@ -390,26 +409,26 @@ public class ArTradeActivity extends AppCompatActivity implements GLSurfaceView.
 
     private void showSnackbarMessage(String message, boolean finishOnDismiss) {
         mMessageSnackbar = Snackbar.make(
-            ArTradeActivity.this.findViewById(android.R.id.content),
-            message, Snackbar.LENGTH_INDEFINITE);
+                ArTradeActivity.this.findViewById(android.R.id.content),
+                message, Snackbar.LENGTH_INDEFINITE);
         mMessageSnackbar.getView().setBackgroundColor(0xbf323232);
         if (finishOnDismiss) {
             mMessageSnackbar.setAction(
-                "Dismiss",
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mMessageSnackbar.dismiss();
-                    }
-                });
+                    "Dismiss",
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mMessageSnackbar.dismiss();
+                        }
+                    });
             mMessageSnackbar.addCallback(
-                new BaseTransientBottomBar.BaseCallback<Snackbar>() {
-                    @Override
-                    public void onDismissed(Snackbar transientBottomBar, int event) {
-                        super.onDismissed(transientBottomBar, event);
-                        finish();
-                    }
-                });
+                    new BaseTransientBottomBar.BaseCallback<Snackbar>() {
+                        @Override
+                        public void onDismissed(Snackbar transientBottomBar, int event) {
+                            super.onDismissed(transientBottomBar, event);
+                            finish();
+                        }
+                    });
         }
         mMessageSnackbar.show();
     }
