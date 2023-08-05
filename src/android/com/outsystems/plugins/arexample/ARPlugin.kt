@@ -9,7 +9,6 @@ import org.apache.cordova.CordovaInterface
 import org.apache.cordova.CordovaWebView
 import org.apache.cordova.PermissionHelper
 import org.json.JSONArray
-//import android.util.Base64
 
 class ARPlugin: CordovaImplementation(){
 
@@ -44,11 +43,6 @@ class ARPlugin: CordovaImplementation(){
     private fun doOpenAR(args: JSONArray) {
 
         folderName = args.getString(0)
-//        val base64model = args.getString(1)
-//        val base64texture= args.getString(2)
-//        val model = Base64.decode(base64model, Base64.DEFAULT)
-//
-//        val texture = Base64.decode(base64texture, Base64.DEFAULT)
 
 
         if(folderName.isNullOrEmpty()){
@@ -75,8 +69,8 @@ class ARPlugin: CordovaImplementation(){
             }
             else{
                 val intent = Intent(cordova.activity, ArTradeActivity::class.java)
-                intent.putExtra("obj_path", 'raw/mesh.obj')
-                intent.putExtra("texture_path", 'raw/diffuse.png')
+                intent.putExtra("obj_path", "raw/mesh.obj")
+                intent.putExtra("texture_path", "raw/diffuse.png")
 
                 cordova.activity.startActivityForResult(intent, 1)
             }
