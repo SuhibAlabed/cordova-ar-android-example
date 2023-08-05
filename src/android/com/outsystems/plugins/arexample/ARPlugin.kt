@@ -69,8 +69,8 @@ class ARPlugin: CordovaImplementation(){
             }
             else{
                 val intent = Intent(cordova.activity, ArTradeActivity::class.java)
-                intent.putExtra("obj_path", "res/raw/mesh.obj")
-                intent.putExtra("texture_path", "res/raw/diffuse.png")
+                intent.putExtra("obj_path", "https://raw.githubusercontent.com/SuhibAlabed/webARObject/main/$folderName/mesh.obj")
+                intent.putExtra("texture_path", "https://raw.githubusercontent.com/SuhibAlabed/webARObject/main/$folderName/diffuse.png")
                 cordova.activity.startActivityForResult(intent, 1)
             }
 
