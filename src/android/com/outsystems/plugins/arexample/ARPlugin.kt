@@ -70,14 +70,10 @@ class ARPlugin: CordovaImplementation(){
             else{
                 val intent = Intent(cordova.activity, ArTradeActivity::class.java)
 
-//                intent.putExtra("obj_path", "www/$folderName/mesh.obj")
-//                intent.putExtra("texture_path", "www/$folderName/diffuse.png")
-                val sceneViewerIntent = Intent(Intent.ACTION_VIEW)
-                sceneViewerIntent.setData(Uri.parse("https://arvr.google.com/scene-viewer/1.0?file=https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Avocado/glTF/Avocado.gltf"))
-                sceneViewerIntent.setPackage("com.google.android.googlequicksearchbox")
-                cordova.activity.startActivity(sceneViewerIntent)
+                intent.putExtra("obj_path", resources.openRawResource("mesh.obj"))
+                intent.putExtra("texture_path", resources.openRawResource("diffuse.png"))
 
-//                cordova.activity.startActivityForResult(intent, 1)
+                cordova.activity.startActivityForResult(intent, 1)
             }
 
         }
