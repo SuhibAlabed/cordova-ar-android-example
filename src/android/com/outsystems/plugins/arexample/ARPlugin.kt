@@ -15,8 +15,8 @@ class ARPlugin: CordovaImplementation(){
     override var callbackContext: CallbackContext? = null
 
     var folderName = ""
-    var model = null
-    var texture = null
+    byte[] model = null
+    byte[] texture = null
     val ACCESS_CAMERA = 0
 
     override fun initialize(cordova: CordovaInterface, webView: CordovaWebView) {
@@ -72,9 +72,9 @@ class ARPlugin: CordovaImplementation(){
             }
             else{
                 val intent = Intent(cordova.activity, ArTradeActivity::class.java)
-
-                intent.putExtra("obj_path", "$model")
-                intent.putExtra("texture_path", "$texture")
+e
+                intent.putExtra("obj_path", model)
+                intent.putExtra("texture_path", texture)
 
                 cordova.activity.startActivityForResult(intent, 1)
             }
