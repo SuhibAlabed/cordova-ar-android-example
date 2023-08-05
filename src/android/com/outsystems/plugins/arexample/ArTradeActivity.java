@@ -85,7 +85,7 @@ public class ArTradeActivity extends AppCompatActivity implements GLSurfaceView.
     private static final String USER_AGENT = "Mozilla/5.0";
     private static final String GET_URL = "https://personal-gcdmeeaq.outsystemscloud.com/ARMDC_API/rest/Attachment/Model?Id=18";
 
-    protected void sendGET() throws IOException {
+    protected void sendGET() {
         // objPath = getIntent().getStringExtra("obj_path");
         // texturePath = getIntent().getStringExtra("texture_path");
 
@@ -94,7 +94,7 @@ public class ArTradeActivity extends AppCompatActivity implements GLSurfaceView.
         con.setRequestMethod("GET");
         con.setRequestProperty("User-Agent", USER_AGENT);
         int responseCode = con.getResponseCode();
-        System.out.println("GET Response Code :: " + responseCode);
+        // System.out.println("GET Response Code :: " + responseCode);
         if (responseCode == HttpURLConnection.HTTP_OK) { // success
             BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
             String inputLine;
@@ -109,7 +109,7 @@ public class ArTradeActivity extends AppCompatActivity implements GLSurfaceView.
             // print result
             // System.out.println(response.toString());
         } else {
-            System.out.println("GET request did not work.");
+            // System.out.println("GET request did not work.");
         }
     }
 
