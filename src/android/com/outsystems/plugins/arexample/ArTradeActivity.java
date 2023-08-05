@@ -82,8 +82,8 @@ public class ArTradeActivity extends AppCompatActivity implements GLSurfaceView.
         
         
         //assign values to objPath and texturePath
-        objPath = "raw.githubusercontent.com/SuhibAlabed/webARObject/main/Cat/mesh.obj"  //getIntent().getStringExtra("obj_path");
-        texturePath = "raw.githubusercontent.com/SuhibAlabed/webARObject/main/Cat/diffuse.png" //getIntent().getStringExtra("texture_path");
+        objPath = "raw.githubusercontent.com/SuhibAlabed/webARObject/main/Cat/mesh.obj";  //getIntent().getStringExtra("obj_path");
+        texturePath = "raw.githubusercontent.com/SuhibAlabed/webARObject/main/Cat/diffuse.png"; //getIntent().getStringExtra("texture_path");
         
         // Set up tap listener.
         mGestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
