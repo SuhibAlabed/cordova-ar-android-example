@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<plugin id="com.outsystems.plugins.arexample" version="0.0.1" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+<plugin id="com.outsystems.plugins.arexample" version="0.0.1"
+  xmlns="http://apache.org/cordova/ns/plugins/1.0"
+  xmlns:android="http://schemas.android.com/apk/res/android">
   <name>ARPlugin</name>
   <description>OutSystems Template for Cordova Plugin</description>
   <author>OutSystems Inc</author>
@@ -18,7 +20,10 @@
       <preference name="GradlePluginKotlinEnabled" value="true" />
       <preference name="GradlePluginKotlinCodeStyle" value="official" />
       <preference name="AndroidXEnabled" value="true"/>
-
+      <preference name="AndroidPersistentFileLocation" value="Internal" />
+      <preference name="iosExtraFilesystems" value="library,library-nosync,documents,documents-nosync,cache,bundle,root" />
+      <preference name="AndroidExtraFilesystems" value="files,files-external,documents,sdcard,cache,cache-external,assets,root" />
+      <preference name="AndroidPersistentFileLocation" value="Compatibility" />
     </config-file>
 
     <config-file parent="/*" target="res/xml/config.xml">
@@ -29,7 +34,7 @@
     <config-file parent="/*" target="AndroidManifest.xml"/>
 
     <config-file parent="/manifest" target="AndroidManifest.xml">
-      
+
       <uses-feature android:name="android.hardware.camera.ar" android:required="true"/>
       <uses-feature android:glEsVersion="0x00020000" android:required="true" />
 
@@ -37,15 +42,9 @@
 
 
     <config-file parent="/manifest/application" target="AndroidManifest.xml">
-      
-      <activity
-            android:name="com.google.ar.core.examples.java.helloar.ArTradeActivity"
-            android:label="@string/app_name"
-            android:configChanges="orientation|screenSize"
-            android:exported="true"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:screenOrientation="locked">
-        </activity>
+
+      <activity android:name="com.google.ar.core.examples.java.helloar.ArTradeActivity" android:label="@string/app_name" android:configChanges="orientation|screenSize" android:exported="true" android:theme="@style/Theme.AppCompat.NoActionBar" android:screenOrientation="locked">
+      </activity>
 
       <meta-data android:name="com.google.ar.core" android:value="required" />
 
@@ -62,7 +61,7 @@
     <source-file src="src/android/com/outsystems/plugins/arexample/CameraPermissionHelper.java" target-dir="app/src/main/kotlin/com/google/ar/core/examples/java/helloar"/>
     <source-file src="src/android/com/outsystems/plugins/arexample/DisplayRotationHelper.java" target-dir="app/src/main/kotlin/com/google/ar/core/examples/java/helloar"/>
     <source-file src="src/android/com/outsystems/plugins/arexample/package-info.java" target-dir="app/src/main/kotlin/com/google/ar/core/examples/java/helloar"/>
-    
+
 
     <!--Rendering-->
     <source-file src="src/android/com/outsystems/plugins/arexample/rendering/BackgroundRenderer.java" target-dir="app/src/main/kotlin/com/google/ar/core/examples/java/helloar/rendering"/>
@@ -112,11 +111,11 @@
       <preference name="UseSwiftLanguageVersion" value="5" />
     </config-file>
 
-		<!-- iOS Source Files -->
-		<source-file src="src/ios/CordovaImplementation.swift" />
+    <!-- iOS Source Files -->
+    <source-file src="src/ios/CordovaImplementation.swift" />
     <source-file src="src/ios/ARPlugin.swift" />
     <framework src="src/ios/frameworks/OSCore.xcframework" embed="true" custom="true" />
-    
+
   </platform>
 
 </plugin>
