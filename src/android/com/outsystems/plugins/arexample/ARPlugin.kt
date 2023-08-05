@@ -15,7 +15,8 @@ class ARPlugin: CordovaImplementation(){
     override var callbackContext: CallbackContext? = null
 
     var folderName = ""
-
+    var model = null
+    var texture = null
     val ACCESS_CAMERA = 0
 
     override fun initialize(cordova: CordovaInterface, webView: CordovaWebView) {
@@ -43,7 +44,9 @@ class ARPlugin: CordovaImplementation(){
 
     private fun doOpenAR(args: JSONArray) {
 
-        folderName = args.getString(0)
+        folderName = args[0].getString(0)
+        model = args[1].getString(0)
+        texture = args[2].getString(0)
 
         if(folderName.isNullOrEmpty()){
             return
@@ -70,8 +73,8 @@ class ARPlugin: CordovaImplementation(){
             else{
                 val intent = Intent(cordova.activity, ArTradeActivity::class.java)
 
-                intent.putExtra("obj_path", "www/$folderName/mesh.obj")
-                intent.putExtra("texture_path", "www/$folderName/diffuse.png")
+                intent.putExtra("obj_path", "$model")
+                intent.putExtra("texture_path", "$texture")
 
                 cordova.activity.startActivityForResult(intent, 1)
             }
