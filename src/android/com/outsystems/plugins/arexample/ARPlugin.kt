@@ -72,7 +72,6 @@ class ARPlugin: CordovaImplementation(){
             }
             else{
                 val intent = Intent(cordova.activity, ArTradeActivity::class.java)
-e
                 intent.putExtra("obj_path", model)
                 intent.putExtra("texture_path", texture)
 
