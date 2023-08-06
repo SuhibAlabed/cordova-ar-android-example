@@ -90,11 +90,11 @@ public class ArTradeActivity extends AppCompatActivity implements GLSurfaceView.
         mDisplayRotationHelper = new DisplayRotationHelper(/* context= */ this);
         // assign values to objPath and texturePath
 
-        objPath = "raw/mesh.obj";
-        texturePath = "raw/diffuse.png";
+        // objPath = "www/cat/mesh.obj" ;
+        // texturePath = "www/cat/diffuse.png"
 
-        // objPath = getIntent().getStringExtra("obj_path");
-        // texturePath = getIntent().getStringExtra("texture_path");
+        objPath = getIntent().getStringExtra("obj_path");
+        texturePath = getIntent().getStringExtra("texture_path");
 
         // Set up tap listener.
         mGestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
@@ -245,7 +245,7 @@ public class ArTradeActivity extends AppCompatActivity implements GLSurfaceView.
 
         // Prepare the other rendering objects.
         try {
-            mVirtualObject.createOnGlThread(/* context= */this, "mesh.obj", "diffuse.png",
+            mVirtualObject.createOnGlThread(/* context= */this, objPath, texturePath,
                     getResourceId("raw/object_vertex"), getResourceId("raw/object_fragment"));
             mVirtualObject.setMaterialProperties(0.0f, 3.5f, 1.0f, 6.0f);
 
@@ -328,7 +328,7 @@ public class ArTradeActivity extends AppCompatActivity implements GLSurfaceView.
                                     public void run() {
                                         AlertDialog.Builder builder = new AlertDialog.Builder(context);
                                         builder.setTitle("ARTrade")
-                                                .setMessage(objPath)
+                                                .setMessage("ARTrade - Comming Soon")
                                                 .setNeutralButton("OK", null);
 
                                         AlertDialog dialog = builder.create();
