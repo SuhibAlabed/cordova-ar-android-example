@@ -245,7 +245,7 @@ public class ArTradeActivity extends AppCompatActivity implements GLSurfaceView.
 
         // Prepare the other rendering objects.
         try {
-            mVirtualObject.createOnGlThread(/* context= */this, objPath, texturePath,
+            mVirtualObject.createOnGlThread(/* context= */this, "mesh.obj", "diffuse.png",
                     getResourceId("raw/object_vertex"), getResourceId("raw/object_fragment"));
             mVirtualObject.setMaterialProperties(0.0f, 3.5f, 1.0f, 6.0f);
 
