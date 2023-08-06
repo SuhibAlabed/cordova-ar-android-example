@@ -4,7 +4,12 @@
   "description": "OutSystems Template for Cordova Plugin",
   "keywords": [
     "ecosystem:cordova",
-    "cordova-android"
+    "cordova-android",
+    "cordova",
+    "file",
+    "transfer",
+    "cordova-ios",
+    "cordova-browser"
   ],
   "cordova": {
     "id": "com.outsystems.plugins.arexample",
