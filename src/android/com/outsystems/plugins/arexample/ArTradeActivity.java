@@ -90,8 +90,8 @@ public class ArTradeActivity extends AppCompatActivity implements GLSurfaceView.
         mDisplayRotationHelper = new DisplayRotationHelper(/* context= */ this);
         // assign values to objPath and texturePath
 
-        objPath = "https://firebasestorage.googleapis.com/v0/b/sofa-v1.appspot.com/o/mesh.obj?alt=media&token=70931531-d093-4cae-ac01-60460dd500d4";
-        texturePath = "https://firebasestorage.googleapis.com/v0/b/sofa-v1.appspot.com/o/diffuse.png?alt=media&token=db38ac2f-ead3-484d-877e-1d9f8e68cf8d";
+        objPath = "raw/mesh.obj";
+        texturePath = "raw/diffuse.png";
 
         // objPath = getIntent().getStringExtra("obj_path");
         // texturePath = getIntent().getStringExtra("texture_path");
