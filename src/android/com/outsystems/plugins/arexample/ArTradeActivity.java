@@ -90,11 +90,11 @@ public class ArTradeActivity extends AppCompatActivity implements GLSurfaceView.
         mDisplayRotationHelper = new DisplayRotationHelper(/* context= */ this);
         // assign values to objPath and texturePath
 
-        objPath = "www/cat/mesh.obj";
-        texturePath = "www/cat/diffuse.png";
+        // objPath = "www/cat/mesh.obj" ;
+        // texturePath = "www/cat/diffuse.png"
 
-        // objPath = getIntent().getStringExtra("obj_path");
-        // texturePath = getIntent().getStringExtra("texture_path");
+        objPath = getIntent().getStringExtra("obj_path");
+        texturePath = getIntent().getStringExtra("texture_path");
 
         // Set up tap listener.
         mGestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
@@ -328,7 +328,7 @@ public class ArTradeActivity extends AppCompatActivity implements GLSurfaceView.
                                     public void run() {
                                         AlertDialog.Builder builder = new AlertDialog.Builder(context);
                                         builder.setTitle("ARTrade")
-                                                .setMessage("Make a Trade - Coming Soon")
+                                                .setMessage(objPath)
                                                 .setNeutralButton("OK", null);
 
                                         AlertDialog dialog = builder.create();
