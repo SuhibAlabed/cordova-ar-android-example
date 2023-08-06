@@ -90,11 +90,11 @@ public class ArTradeActivity extends AppCompatActivity implements GLSurfaceView.
         mDisplayRotationHelper = new DisplayRotationHelper(/* context= */ this);
         // assign values to objPath and texturePath
 
-        // objPath = "www/cat/mesh.obj" ;
-        // texturePath = "www/cat/diffuse.png"
+        objPath = "https://firebasestorage.googleapis.com/v0/b/sofa-v1.appspot.com/o/mesh.obj?alt=media&token=70931531-d093-4cae-ac01-60460dd500d4";
+        texturePath = "https://firebasestorage.googleapis.com/v0/b/sofa-v1.appspot.com/o/diffuse.png?alt=media&token=db38ac2f-ead3-484d-877e-1d9f8e68cf8d";
 
-        objPath = getIntent().getStringExtra("obj_path");
-        texturePath = getIntent().getStringExtra("texture_path");
+        // objPath = getIntent().getStringExtra("obj_path");
+        // texturePath = getIntent().getStringExtra("texture_path");
 
         // Set up tap listener.
         mGestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
